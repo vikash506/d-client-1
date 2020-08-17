@@ -1,9 +1,30 @@
-.header {
-    background: red;
+section {
+    .header {
+        width: 100%;
+    }
+    .left {
+        background: blue;
+        display: inline-block;
+    }
+    .main {
+        background: red;
+        display: inline-block;
+    }
 }
-.left {
-    background: blue;
+/* Extra small devices (Mobile, 600px and down) */
+@media only screen and (max-width: 700px) {
+    .left { width: 100%; }
+    .main { width: 100%; }
 }
-.main {
-    background: green;
+
+/* Small to medium devices (tablets, 600px and up) */
+@media only screen and (min-width: 700px) {
+    .left { width: 33%; }
+    .main { width: 67%; }
+}
+
+/* Medium to large devices (desktop, 768px and up) */
+@media only screen and (min-width: 1440px) {
+    .left { width: 20%; }
+    .main { width: 80%; }
 }
