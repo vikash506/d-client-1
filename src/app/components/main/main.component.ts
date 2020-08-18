@@ -11,7 +11,8 @@ import { Program } from '../../models/program.model';
 export class MainComponent implements OnInit {
 
   programs: Program[];
-    
+  pLength: number;
+
   constructor(
     private programService: ProgramService
   ) { }
@@ -23,9 +24,11 @@ export class MainComponent implements OnInit {
   // @Desc: Fetching data from the API endpoint for the first launch of the application
   initialize(): void {
     this.programService.getPrograms()
-    .subscribe(res => {
-      this.programs = res;
-    });
+      .subscribe(res => {
+        this.programs = res;
+        if (this.programs)
+          this.pLength = this.programs.length
+      });
     this.programService.getAPIResponse('', '');
   }
 

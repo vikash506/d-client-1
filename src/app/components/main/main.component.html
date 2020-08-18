@@ -7,4 +7,4 @@
 
 <!-- Showing spinner while data is being fetched from the API endpoint -->
 <app-loader *ngIf="!programs"></app-loader>
-<div *ngIf="programs.length == 0" class="cen">No Programs Found!</div>
+<div *ngIf="!pLength" class="cen">No Programs Found!</div>

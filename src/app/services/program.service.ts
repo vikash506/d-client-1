@@ -13,6 +13,7 @@ import { Program } from '../models/program.model';
 export class ProgramService implements OnDestroy {
 
   private programsAPIUrl: string = environment.programsAPIUrl;
+  private qArray: any[];
   private query: string = '';
   private programs: Program[];
   private programsSubject = new Subject<Program[]>();
@@ -50,10 +51,6 @@ export class ProgramService implements OnDestroy {
         this.query += `&${key}=${value}`;
       }
     }
-
-    console.log(this.query)
-
-
     return this.query;
   }
 
