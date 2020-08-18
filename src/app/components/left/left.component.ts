@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList, ElementRef, ViewChild } from '@angular/core';
 import { ProgramService } from '../../services/program.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-left',
@@ -8,6 +9,7 @@ import { ProgramService } from '../../services/program.service';
 })
 export class LeftComponent implements OnInit {
 
+  // @Desc: selecting the dom elements for the filter buttons
   @ViewChildren('btnYear') btn: QueryList<ElementRef>;
   @ViewChild('launchTrue') launchTrue: ElementRef;
   @ViewChild('launchFalse') launchFalse: ElementRef;
@@ -21,18 +23,19 @@ export class LeftComponent implements OnInit {
   private currentLanded: boolean = null;
 
   constructor(
-    private programService: ProgramService
+    private programService: ProgramService,
+    private utilityService: UtilityService
   ) { }
 
   ngOnInit(): void { }
 
-  activateButton(btn: ElementRef) {
-    btn.nativeElement.style.background = "#7aba04";   // Activage Button
-  }
-  deActivateButton(btn: ElementRef) {
-    btn.nativeElement.style.background = "#c5e09b";   // Deactivate Button
-  }
-
+  // @Title: Filter for year (queryYear)
+  // @Desc: {
+  //  1: It applies filter for year on first click
+  //  2: Toggles back to remove filter on Second click
+  //  3: Applies css to highlight the year and removes it as well on toggle
+  //  4: Clicking on another year removes filter and highlighting from previous selected one and applies to another
+  // }   
   queryYear(year: string, i) {
     let j = 0;
     if (this.currentYearIndex == i) {
@@ -43,95 +46,112 @@ export class LeftComponent implements OnInit {
     }
     this.btn.forEach(m => {
       if (this.currentYearIndex == -1) {
-        this.deActivateButton(m)
+        this.utilityService.deActivateButton(m)
       }
       else {
         if (i == j) {
-          this.activateButton(m)
+          this.utilityService.activateButton(m)
         }
         else {
-          this.deActivateButton(m)
+          this.utilityService.deActivateButton(m)
         }
       }
       j++;
     })
+    this.programService.initiateAppLoader();
     this.programService.getAPIResponse('launch_year', year);
   }
 
+  // @Title: Filter for launc - success / fail (queryLaunch)
+  // @Desc: {
+  //  1: It applies filter for Successful or failed launch
+  //  2: Can toggle between true / false button to show successful or failed launch
+  //  3: Applies css to highlight the year and removes it as well on toggle
+  //  4: Toggling resets the filter and css for previous selection and applies to the next
+  // } 
   queryLaunch(launched: boolean) {
     if (this.currentLaunched == null) {
       if (launched == true) {
-        this.activateButton(this.launchTrue)
-        this.deActivateButton(this.launchFalse)
+        this.utilityService.activateButton(this.launchTrue)
+        this.utilityService.deActivateButton(this.launchFalse)
         this.currentLaunched = true;
       }
       else {
-        this.activateButton(this.launchFalse)
-        this.deActivateButton(this.launchTrue)
+        this.utilityService.activateButton(this.launchFalse)
+        this.utilityService.deActivateButton(this.launchTrue)
         this.currentLaunched = false;
       }
     }
     else if (this.currentLaunched == true) {
       if (launched == true) {
-        this.deActivateButton(this.launchTrue);
+        this.utilityService.deActivateButton(this.launchTrue);
         this.currentLaunched = null;
       }
       else {
-        this.activateButton(this.launchFalse)
-        this.deActivateButton(this.launchTrue)
+        this.utilityService.activateButton(this.launchFalse)
+        this.utilityService.deActivateButton(this.launchTrue)
         this.currentLaunched = false;
       }
     }
-    else if(this.currentLaunched == false) {
+    else if (this.currentLaunched == false) {
       if (launched == false) {
-        this.deActivateButton(this.launchFalse); 
+        this.utilityService.deActivateButton(this.launchFalse);
         this.currentLaunched = null;
       }
       else {
-        this.activateButton(this.launchTrue)
-        this.deActivateButton(this.launchFalse)
+        this.utilityService.activateButton(this.launchTrue)
+        this.utilityService.deActivateButton(this.launchFalse)
         this.currentLaunched = true;
       }
     }
-    this.programService.getAPIResponse("launch_success", launched);
+    this.programService.initiateAppLoader();        // Applies a 'loading...' effect while fetching data from endpoint
+    this.programService.getAPIResponse("launch_success", launched); // Fetches data from API endpoint
   }
 
+  // @Title: Filter for launc - success / fail (queryLand)
+  // @Desc: {
+  //  1: It applies filter for Successful or failed launch
+  //  2: Can toggle between true / false button to show successful or failed land
+  //  3: Applies css to highlight the year and removes it as well on toggle
+  //  4: Toggling resets the filter and css for previous selection and applies to the next
+  // } 
   queryLand(landed: boolean) {
     if (this.currentLanded == null) {
       if (landed == true) {
-        this.activateButton(this.landTrue)
-        this.deActivateButton(this.landFalse)
+        this.utilityService.activateButton(this.landTrue)
+        this.utilityService.deActivateButton(this.landFalse)
         this.currentLanded = true;
       }
       else {
-        this.activateButton(this.landFalse)
-        this.deActivateButton(this.landTrue)
+        this.utilityService.activateButton(this.landFalse)
+        this.utilityService.deActivateButton(this.landTrue)
         this.currentLanded = false;
       }
     }
     else if (this.currentLanded == true) {
       if (landed == true) {
-        this.deActivateButton(this.landTrue);
+        this.utilityService.deActivateButton(this.landTrue);
         this.currentLanded = null;
       }
       else {
-        this.activateButton(this.landFalse)
-        this.deActivateButton(this.landTrue)
+        this.utilityService.activateButton(this.landFalse)
+        this.utilityService.deActivateButton(this.landTrue)
         this.currentLanded = false;
       }
     }
-    else if(this.currentLanded == false) {
+    else if (this.currentLanded == false) {
       if (landed == false) {
-        this.deActivateButton(this.landFalse); 
+        this.utilityService.deActivateButton(this.landFalse);
         this.currentLanded = null;
       }
       else {
-        this.activateButton(this.landTrue)
-        this.deActivateButton(this.landFalse)
+        this.utilityService.activateButton(this.landTrue)
+        this.utilityService.deActivateButton(this.landFalse)
         this.currentLanded = true;
       }
     }
-    this.programService.getAPIResponse("land_success", landed);
+    this.programService.initiateAppLoader();       // Applies a 'loading...' effect while fetching data from endpoint
+    this.programService.getAPIResponse("land_success", landed);   // Fetches data from API endpoint
   }
 
 }

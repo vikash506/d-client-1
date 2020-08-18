@@ -21,6 +21,14 @@ export class ProgramService {
     private http: HttpClient
   ) { }
 
+
+  // @Title: Preparing filter string to form query string for the API)
+  // @Signature: takes key and values of the query and returns the new query string
+  // @Desc: {
+  //  1: It adds the filter to the query string when any filter is selected
+  //  2: It removes the filter from the query string when any filter is deselected
+  //  3: It adds and removes multiple such filters
+  // }  
   private configureAPIUrl(key: string, value: any): string {
     if (key == '') {
       this.query = '';
@@ -48,6 +56,16 @@ export class ProgramService {
     return this.query;
   }
 
+
+  // @Title: Fetch data from the API endpoint
+  // @Signature: takes key and values of the query and subscribes to it
+  // @Desc: {
+  //  1: It requests 'configureAPIUrl(key: string, value: any): string' method for the API url with query string
+  //  2: Requests data from the API endpoint based on the url + query string
+  //  3: Subscribes to it
+  //  4: Filters the incoming stream to retain only the required data
+  //  5: Updates the filtered data to the programs variable
+  // }   
   getAPIResponse(key: string, value: any) {
     this.http.get<Program[]>(this.programsAPIUrl + this.configureAPIUrl(key, value))
       .pipe(map((item: any[]) => item.map((data: any) => new Program(
@@ -65,6 +83,12 @@ export class ProgramService {
       });
   }
 
+  // @Desc: To show the spinner while the data is being fetched from the API endpoint
+  initiateAppLoader(): void {
+    this.programsSubject.next(null);
+  }
+
+  // @Desc: To show the spinner while the data is being fetched from the API endpoint
   getPrograms(): Observable<Program[]> {
     return this.programsSubject.asObservable();
   }

@@ -1,18 +1,36 @@
 <div class="card col-xs-12">
+
+    <!-- Icon for the program -->
     <img src="{{ program.mission_patch_small }}" alt="Avatar" style="width:100%"><br><br>
     <div class="container">
+
+        <!-- Program Name with Flight Number -->
         <span><b>{{ program.mission_name }} #{{ program.flight_number }}</b></span>
         <br>
+
+        <!-- List of all mission IDs, Displays 'N/A' if there is no mission id -->
         <span><b>Mission Ids:</b></span>
-        <ul>
+        <ul *ngIf="program.mission_id.length > 0">
             <li *ngFor="let id of program.mission_id">
                 {{ id }}
             </li>
         </ul>
+
+        <ul *ngIf="program.mission_id.length == 0">
+            <li>
+                N / A
+            </li>
+        </ul>
+
+        <!-- Launch Year -->
         <span><b>Launch Year</b>{{ program.launch_year }}</span>
         <br>
-        <span><b>Successful Launch:</b> {{ program.launch_success }}</span>
+
+        <!-- Launch Success Status -->
+        <span><b>Successful Launch:</b> {{ program.launch_success | boolToStr }}</span>
         <br>
-        <span><b>Successful Landing:</b> {{ program.land_success }}</span>
+
+        <!-- Land Success Status -->
+        <span><b>Successful Landing:</b> {{ program.land_success | boolToStr }}</span>
     </div>
 </div>

@@ -10,6 +10,8 @@ import { ProgramService } from './services/program.service';
 import { MainComponent } from './components/main/main.component';
 import { LayoutsModule } from './layouts/layouts.module';
 import { FooterComponent } from './components/footer/footer.component';
+import { PipesModule } from './pipes/pipes.module';
+import { UtilityService } from './services/utility.service';
 
 @NgModule({
   declarations: [
@@ -23,10 +25,12 @@ import { FooterComponent } from './components/footer/footer.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    LayoutsModule
+    LayoutsModule,
+    PipesModule
   ],
   providers: [
-    ProgramService
+    ProgramService,
+    UtilityService
   ],
   bootstrap: [AppComponent]
 })

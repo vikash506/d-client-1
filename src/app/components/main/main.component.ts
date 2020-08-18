@@ -17,11 +17,15 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.initialize();
+  }
+
+  // @Desc: Fetching data from the API endpoint for the first launch of the application
+  initialize(): void {
     this.programService.getPrograms()
     .subscribe(res => {
       this.programs = res;
     });
-
     this.programService.getAPIResponse('', '');
   }
 

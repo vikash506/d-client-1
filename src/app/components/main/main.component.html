@@ -1,6 +1,9 @@
+<!-- Displaying data fetched from the API endpoint -->
 <span *ngIf="programs">
     <span *ngFor="let program of programs">
         <app-card-program [program]="program"></app-card-program>
     </span>
 </span>
+
+<!-- Showing spinner while data is being fetched from the API endpoint -->
 <app-loader *ngIf="!programs"></app-loader>
