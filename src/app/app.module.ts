@@ -22,7 +22,7 @@ import { UtilityService } from './services/utility.service';
     FooterComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     LayoutsModule,
