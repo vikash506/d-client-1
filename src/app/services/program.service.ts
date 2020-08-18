@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, from } from 'rxjs';
+import { Observable, Subject, from, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
@@ -10,12 +10,13 @@ import { Program } from '../models/program.model';
 @Injectable({
   providedIn: 'root'
 })
-export class ProgramService {
+export class ProgramService implements OnDestroy {
 
   private programsAPIUrl: string = environment.programsAPIUrl;
   private query: string = '';
   private programs: Program[];
   private programsSubject = new Subject<Program[]>();
+  private programSubscription: Subscription;
 
   constructor(
     private http: HttpClient
@@ -67,7 +68,7 @@ export class ProgramService {
   //  5: Updates the filtered data to the programs variable
   // }   
   getAPIResponse(key: string, value: any) {
-    this.http.get<Program[]>(this.programsAPIUrl + this.configureAPIUrl(key, value))
+    this.programSubscription = this.http.get<Program[]>(this.programsAPIUrl + this.configureAPIUrl(key, value))
       .pipe(map((item: any[]) => item.map((data: any) => new Program(
         data.mission_id,
         data.flight_number,
@@ -91,5 +92,9 @@ export class ProgramService {
   // @Desc: To show the spinner while the data is being fetched from the API endpoint
   getPrograms(): Observable<Program[]> {
     return this.programsSubject.asObservable();
+  }
+
+  ngOnDestroy(): void {
+    this.programSubscription.unsubscribe();
   }
 }
