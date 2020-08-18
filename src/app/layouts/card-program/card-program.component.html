@@ -1,0 +1,18 @@
+<div class="card col-xs-12">
+    <img src="{{ program.mission_patch_small }}" alt="Avatar" style="width:100%"><br><br>
+    <div class="container">
+        <span><b>{{ program.mission_name }} #{{ program.flight_number }}</b></span>
+        <br><br>
+        <span><b>Mission Ids:</b></span>
+        <ul>
+            <li *ngFor="let id of program.mission_id">
+                {{ id }}
+            </li>
+        </ul>
+        <span><b>Launch Year</b>{{ program.launch_year }}</span>
+        <br><br>
+        <span><b>Successful Launch:</b> {{ program.launch_success }}</span>
+        <br><br>
+        <span><b>Successful Landing:</b> {{ program.land_success }}</span>
+    </div>
+</div>

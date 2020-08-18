@@ -1,22 +1,24 @@
-<div class="title">Filters</div>
+<span>
+    <div class="title">Filters</div>
 
-<!-- Launch Year -->
-<div class="subtitle">Launch Year</div>
-<hr>
-<div class="button" *ngFor="let year of years">
-    {{ year }}
-</div>
-
-
-<!-- Successful Launch -->
-<div class="subtitle">Successful Launch</div>
-<hr>
-<div class="button">True</div>
-<div class="button">False</div>
+    <!-- Launch Year -->
+    <div class="subtitle">Launch Year</div>
+    <hr>
+    <div class="button" *ngFor="let year of years; let i = index" (click)="query(year, i)" #btn>
+        {{ year }}
+    </div>
 
 
-<!-- Successful Landing -->
-<div class="subtitle">Successful Landing</div>
-<hr>
-<div class="button">True</div>
-<div class="button">False</div>
+    <!-- Successful Launch -->
+    <div class="subtitle">Successful Launch</div>
+    <hr>
+    <div class="button">True</div>
+    <div class="button">False</div>
+
+
+    <!-- Successful Landing -->
+    <div class="subtitle">Successful Landing</div>
+    <hr>
+    <div class="button">True</div>
+    <div class="button">False</div>
+</span>
