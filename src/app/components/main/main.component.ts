@@ -11,24 +11,18 @@ import { Program } from '../../models/program.model';
 export class MainComponent implements OnInit {
 
   programs: Program[];
-  program: Program = new Program(['id'], 1, 'mission', '2000', true, true,'string');
     
   constructor(
     private programService: ProgramService
   ) { }
 
   ngOnInit(): void {
-    console.log('hellokkk');
-    
     this.programService.getPrograms()
     .subscribe(res => {
-      console.log((res));
       this.programs = res;
-      console.log(this.programs);
-      
     });
 
-    this.programService.getAPIResponse('');
+    this.programService.getAPIResponse('', '');
   }
 
 }

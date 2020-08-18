@@ -1,7 +1,7 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable, Subject, from } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { Program } from '../models/program.model';
@@ -13,7 +13,7 @@ import { Program } from '../models/program.model';
 export class ProgramService {
 
   private programsAPIUrl: string = environment.programsAPIUrl;
-  private 
+  private query: string = '';
   private programs: Program[];
   private programsSubject = new Subject<Program[]>();
 
@@ -21,24 +21,35 @@ export class ProgramService {
     private http: HttpClient
   ) { }
 
-  private configureAPIUrl(query: string): string {
-    let queryKey = query.substring(1, query.indexOf('=')-1);
-    console.log(this.programsAPIUrl.includes(query));
-    
-    if(this.programsAPIUrl.includes(query))
-      this.programsAPIUrl = this.programsAPIUrl.replace(query, '');
-    else if(this.programsAPIUrl.includes(queryKey)){
-      this.programsAPIUrl = `${this.programsAPIUrl.substring(0, this.programsAPIUrl.indexOf(queryKey)-1)}${query}`;
+  private configureAPIUrl(key: string, value: any): string {
+    if (key == '') {
+      this.query = '';
     }
-    else
-      this.programsAPIUrl = `${this.programsAPIUrl}${query}`;
-    console.log(this.programsAPIUrl);
-    
-    return this.programsAPIUrl;
+    else {
+      if (this.query.includes(`&${key}=${value}`)) {
+        this.query = this.query.replace(`&${key}=${value}`, '')
+      }
+      else if (this.query.includes(`&${key}`)) {
+        let qSub = this.query.substring(this.query.indexOf(key) -1, this.query.substring(1).indexOf('&') + 1)
+        if(qSub == '') qSub = this.query.substring(this.query.indexOf(key) -1)
+        this.query = this.query.replace(
+          qSub,
+          '');
+        this.query += `&${key}=${value}`
+      }
+      else {
+        this.query += `&${key}=${value}`;
+      }
+    }
+
+    console.log(this.query)
+
+
+    return this.query;
   }
 
-  getAPIResponse(query: string) {
-    this.http.get<Program[]>(this.configureAPIUrl(query))
+  getAPIResponse(key: string, value: any) {
+    this.http.get<Program[]>(this.programsAPIUrl + this.configureAPIUrl(key, value))
       .pipe(map((item: any[]) => item.map((data: any) => new Program(
         data.mission_id,
         data.flight_number,
@@ -49,8 +60,6 @@ export class ProgramService {
         data.links.mission_patch_small
       ))))
       .subscribe(data => {
-        console.log("helllljkljlkj");
-        
         this.programs = data;
         this.programsSubject.next(this.programs);
       });

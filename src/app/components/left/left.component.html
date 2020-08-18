@@ -4,7 +4,7 @@
     <!-- Launch Year -->
     <div class="subtitle">Launch Year</div>
     <hr>
-    <div class="button" *ngFor="let year of years; let i = index" (click)="query(year, i)" #btn>
+    <div class="button" *ngFor="let year of years; let i = index" (click)="queryYear(year, i)" #btnYear>
         {{ year }}
     </div>
 
@@ -12,13 +12,13 @@
     <!-- Successful Launch -->
     <div class="subtitle">Successful Launch</div>
     <hr>
-    <div class="button">True</div>
-    <div class="button">False</div>
+    <div class="button" (click)="queryLaunch(true)" #launchTrue>True</div>
+    <div class="button" (click)="queryLaunch(false)" #launchFalse>False</div>
 
 
     <!-- Successful Landing -->
     <div class="subtitle">Successful Landing</div>
     <hr>
-    <div class="button">True</div>
-    <div class="button">False</div>
+    <div class="button" (click)="queryLand(true)" #landTrue>True</div>
+    <div class="button" (click)="queryLand(false)" #landFalse>False</div>
 </span>
