@@ -1,4 +1,5 @@
 {
+  "site": "launch-program",
   "hosting": {
     "public": "dist/client/fire",
     "ignore": [

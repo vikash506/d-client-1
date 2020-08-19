@@ -12,6 +12,7 @@
 
 ul {
     margin-bottom: 0;
+    margin-top: 0;
 }
 
 
@@ -19,6 +20,8 @@ ul {
 @media only screen and (max-width: 700px) {
     .card {
         width: 100%;
+        box-sizing: border-box;
+        font-size: 1.5em;
         // height: 570px;
     }
 }
@@ -26,15 +29,15 @@ ul {
 /* Small to medium devices (tablets, 600px and up) */
 @media only screen and (min-width: 700px) {
     .card {
-        width: 49%;
-        height: 530px;
+        width: 42.7%;
+        height: 445px;
     }
 }
 
 /* Medium to large devices (desktop, 768px and up) */
 @media only screen and (min-width: 1440px) {
     .card {
-        width: 24%;
-        height: 520px;
+        width: 20.6%;
+        height: 445px;
     }
 }
