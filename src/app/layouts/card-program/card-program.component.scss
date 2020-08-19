@@ -4,6 +4,7 @@
     background: #ffffff;
     padding: 20px;
     margin: 5px 0.5%;
+    font-size: 1.3em;
     img {
         background: #f2f2f2;
     }
@@ -26,6 +27,7 @@ ul {
 @media only screen and (min-width: 700px) {
     .card {
         width: 49%;
+        height: 530px;
     }
 }
 
@@ -33,6 +35,6 @@ ul {
 @media only screen and (min-width: 1440px) {
     .card {
         width: 24%;
-        height: 480px;
+        height: 520px;
     }
 }

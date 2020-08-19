@@ -1,5 +1,30 @@
 .cen {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    font-weight: bold;
+    font-size: 1.3em;
 }
+
+/* Extra small devices (Mobile, 600px and down) */
+@media only screen and (max-width: 700px) {
+    .cen {
+      text-align: center;
+    }
+  }
+  
+  /* Small to medium devices (tablets, 600px and up) */
+  @media only screen and (min-width: 700px) {
+    .cen {
+      position: absolute;
+      left: 61%;
+      top: 50%;
+    }
+  }
+  
+  /* Medium to large devices (desktop, 768px and up) */
+  @media only screen and (min-width: 1440px) {
+    .cen {
+      position: absolute;
+      left: 55%;
+      top: 50%;
+    }
+  }
+  

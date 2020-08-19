@@ -1,4 +1,20 @@
 {
+  "targets": {
+    "launch-program": {
+      "hosting": {
+        "client": [
+          "launch-program"
+        ]
+      }
+    },
+    "fir-launch-program": {
+      "hosting": {
+        "client": [
+          "fir-launch-program"
+        ]
+      }
+    }
+  },
   "projects": {
     "default": "launch-program"
   }
