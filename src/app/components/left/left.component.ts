@@ -10,17 +10,20 @@ import { UtilityService } from 'src/app/services/utility.service';
 export class LeftComponent implements OnInit {
 
   // @Desc: selecting the dom elements for the filter buttons
-  @ViewChildren('btnYear') btn: QueryList<ElementRef>;
-  @ViewChild('launchTrue') launchTrue: ElementRef;
-  @ViewChild('launchFalse') launchFalse: ElementRef;
-  @ViewChild('landTrue') landTrue: ElementRef;
-  @ViewChild('landFalse') landFalse: ElementRef;
+  @ViewChildren('btnYear', { read: ElementRef }) btn: QueryList<ElementRef>;
+  @ViewChild('launchTrue', { static: true, read: ElementRef }) launchTrue: ElementRef;
+  @ViewChild('launchFalse', { read: ElementRef }) launchFalse: ElementRef;
+  @ViewChild('landTrue', { read: ElementRef }) landTrue: ElementRef;
+  @ViewChild('landFalse', { read: ElementRef }) landFalse: ElementRef;
 
   // Static initialization of years
   years: number[] = [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020,];
   private currentYearIndex: number = -1;
   private currentLaunched: boolean = null;
   private currentLanded: boolean = null;
+  yearIndex: number = -1;
+  launchIndex: number = -1;
+  landIndex: number = -1;
 
   constructor(
     private programService: ProgramService,
@@ -37,27 +40,13 @@ export class LeftComponent implements OnInit {
   //  4: Clicking on another year removes filter and highlighting from previous selected one and applies to another
   // }   
   queryYear(year: string, i) {
-    let j = 0;
-    if (this.currentYearIndex == i) {
-      this.currentYearIndex = -1;
+    if (this.yearIndex == i) {
+      this.yearIndex = -1;
     }
     else {
-      this.currentYearIndex = i;
+      this.yearIndex = i;
     }
-    this.btn.forEach(m => {
-      if (this.currentYearIndex == -1) {
-        this.utilityService.deActivateButton(m)
-      }
-      else {
-        if (i == j) {
-          this.utilityService.activateButton(m)
-        }
-        else {
-          this.utilityService.deActivateButton(m)
-        }
-      }
-      j++;
-    })
+
     this.programService.initiateAppLoader();
     this.programService.getAPIResponse('launch_year', year);
   }
@@ -69,41 +58,14 @@ export class LeftComponent implements OnInit {
   //  3: Applies css to highlight the year and removes it as well on toggle
   //  4: Toggling resets the filter and css for previous selection and applies to the next
   // } 
-  queryLaunch(launched: boolean) {
-    if (this.currentLaunched == null) {
-      if (launched == true) {
-        this.utilityService.activateButton(this.launchTrue)
-        this.utilityService.deActivateButton(this.launchFalse)
-        this.currentLaunched = true;
-      }
-      else {
-        this.utilityService.activateButton(this.launchFalse)
-        this.utilityService.deActivateButton(this.launchTrue)
-        this.currentLaunched = false;
-      }
+  queryLaunch(launched: boolean, i) {
+    if (this.launchIndex == i) {
+      this.launchIndex = -1;
     }
-    else if (this.currentLaunched == true) {
-      if (launched == true) {
-        this.utilityService.deActivateButton(this.launchTrue);
-        this.currentLaunched = null;
-      }
-      else {
-        this.utilityService.activateButton(this.launchFalse)
-        this.utilityService.deActivateButton(this.launchTrue)
-        this.currentLaunched = false;
-      }
+    else {
+      this.launchIndex = i;
     }
-    else if (this.currentLaunched == false) {
-      if (launched == false) {
-        this.utilityService.deActivateButton(this.launchFalse);
-        this.currentLaunched = null;
-      }
-      else {
-        this.utilityService.activateButton(this.launchTrue)
-        this.utilityService.deActivateButton(this.launchFalse)
-        this.currentLaunched = true;
-      }
-    }
+
     this.programService.initiateAppLoader();        // Applies a 'loading...' effect while fetching data from endpoint
     this.programService.getAPIResponse("launch_success", launched); // Fetches data from API endpoint
   }
@@ -115,41 +77,14 @@ export class LeftComponent implements OnInit {
   //  3: Applies css to highlight the year and removes it as well on toggle
   //  4: Toggling resets the filter and css for previous selection and applies to the next
   // } 
-  queryLand(landed: boolean) {
-    if (this.currentLanded == null) {
-      if (landed == true) {
-        this.utilityService.activateButton(this.landTrue)
-        this.utilityService.deActivateButton(this.landFalse)
-        this.currentLanded = true;
-      }
-      else {
-        this.utilityService.activateButton(this.landFalse)
-        this.utilityService.deActivateButton(this.landTrue)
-        this.currentLanded = false;
-      }
+  queryLand(landed: boolean, i) {
+    if (this.landIndex == i) {
+      this.landIndex = -1;
     }
-    else if (this.currentLanded == true) {
-      if (landed == true) {
-        this.utilityService.deActivateButton(this.landTrue);
-        this.currentLanded = null;
-      }
-      else {
-        this.utilityService.activateButton(this.landFalse)
-        this.utilityService.deActivateButton(this.landTrue)
-        this.currentLanded = false;
-      }
+    else {
+      this.landIndex = i;
     }
-    else if (this.currentLanded == false) {
-      if (landed == false) {
-        this.utilityService.deActivateButton(this.landFalse);
-        this.currentLanded = null;
-      }
-      else {
-        this.utilityService.activateButton(this.landTrue)
-        this.utilityService.deActivateButton(this.landFalse)
-        this.currentLanded = true;
-      }
-    }
+
     this.programService.initiateAppLoader();       // Applies a 'loading...' effect while fetching data from endpoint
     this.programService.getAPIResponse("land_success", landed);   // Fetches data from API endpoint
   }

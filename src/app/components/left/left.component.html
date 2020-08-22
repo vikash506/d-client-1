@@ -1,24 +1,71 @@
-<span>
+<mat-card>
     <div class="title">Filters</div>
 
     <!-- Launch Year -->
     <div class="subtitle">Launch Year</div>
     <hr>
-    <div class="button" *ngFor="let year of years; let i = index" (click)="queryYear(year, i)" #btnYear>
+    <button #btnYear mat-raised-button [color]="yearIndex == i ? 'warn' : ''" class="button"
+        *ngFor="let year of years; let i = index" (click)="queryYear(year, i)">
         {{ year }}
-    </div>
+    </button>
 
+    <br><br>
 
     <!-- Successful Launch -->
     <div class="subtitle">Successful Launch</div>
     <hr>
-    <div class="button" (click)="queryLaunch(true)" #launchTrue>True</div>
-    <div class="button" (click)="queryLaunch(false)" #launchFalse>False</div>
+    <button mat-raised-button [color]="launchIndex == 0 ? 'warn' : ''" class="button"
+        (click)="queryLaunch(true, 0)" #launchTrue>True</button>
+    <button mat-raised-button [color]="launchIndex == 1 ? 'warn' : ''" class="button"
+        (click)="queryLaunch(false, 1)" #launchFalse>False</button>
 
+    <br><br>
 
     <!-- Successful Landing -->
     <div class="subtitle">Successful Landing</div>
     <hr>
-    <div class="button" (click)="queryLand(true)" #landTrue>True</div>
-    <div class="button" (click)="queryLand(false)" #landFalse>False</div>
-</span>
+    <button mat-raised-button [color]="landIndex == 0? 'warn' : ''" color="accent" class="button"
+        (click)="queryLand(true, 0)" #landTrue>True</button>
+    <button mat-raised-button [color]="landIndex == 1 ? 'warn' : ''" color="accent" class="button"
+        (click)="queryLand(false, 1)" #landFalse>False</button>
+
+    <br><br>
+</mat-card>
+
+
+
+
+<mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header disabled>
+            <div class="title">Filters</div>
+        </mat-expansion-panel-header>
+
+        <!-- Launch Year -->
+        <div class="subtitle">Launch Year</div>
+        <hr>
+        <button #btnYear mat-raised-button [color]="yearIndex == i ? 'warn' : ''" class="button" *ngFor="let year of years; let i = index"
+            (click)="queryYear(year, i)">
+            {{ year }}
+        </button>
+
+        <br><br>
+
+        <!-- Successful Launch -->
+        <div class="subtitle">Successful Launch</div>
+        <hr>
+        <button mat-raised-button [color]="launchIndex == 0 ? 'warn' : ''" class="button" (click)="queryLaunch(true, 0)" #launchTrue>True</button>
+        <button mat-raised-button [color]="launchIndex == 1 ? 'warn' : ''" class="button" (click)="queryLaunch(false, 1)" #launchFalse>False</button>
+
+        <br><br>
+
+        <!-- Successful Landing -->
+        <div class="subtitle">Successful Landing</div>
+        <hr>
+        <button mat-raised-button [color]="landIndex == 0? 'warn' : ''" class="button" (click)="queryLand(true, 0)" #landTrue>True</button>
+        <button mat-raised-button [color]="landIndex == 1? 'warn' : ''" class="button" (click)="queryLand(false, 1)" #landFalse>False</button>
+
+        <br><br>
+
+    </mat-expansion-panel>
+</mat-accordion>

@@ -1,11 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MainComponent } from './components/main/main.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent
+    loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule)
+  },
+  {
+    path: 'graph',
+    loadChildren: () => import('./views/graph/graph.module').then(m => m.GraphModule)
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
   }
 ];
 

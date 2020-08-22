@@ -1,30 +1,58 @@
+.root {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+.card {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0.5%;
+  padding-top: 0;
+}
+
 .cen {
-    font-weight: bold;
-    font-size: 1.3em;
+  font-weight: bold;
+  font-size: 1.3em;
 }
 
 /* Extra small devices (Mobile, 600px and down) */
 @media only screen and (max-width: 700px) {
-    .cen {
-      text-align: center;
-    }
+  .card {
+    width: 100%;
+    // height: 490px;
+    // height: calc(37%);
+    margin-top: 3 0px;
   }
-  
-  /* Small to medium devices (tablets, 600px and up) */
-  @media only screen and (min-width: 700px) {
-    .cen {
-      position: absolute;
-      left: 61%;
-      top: 50%;
-    }
+  .cen {
+    text-align: center;
   }
-  
-  /* Medium to large devices (desktop, 768px and up) */
-  @media only screen and (min-width: 1440px) {
-    .cen {
-      position: absolute;
-      left: 55%;
-      top: 50%;
-    }
+}
+
+/* Small to medium devices (tablets, 600px and up) */
+@media only screen and (min-width: 700px) {
+  .card {
+    width: 33.333%;
+    // height: 490px;
+    height: calc(37%);
   }
-  
+  .cen {
+    position: absolute;
+    left: 61%;
+    top: 50%;
+  }
+}
+
+/* Medium to large devices (desktop, 768px and up) */
+@media only screen and (min-width: 1440px) {
+  .card {
+    width: 25%;
+    // height: 510px;
+    height: calc(35%);
+  }
+  .cen {
+    position: absolute;
+    left: 55%;
+    top: 50%;
+  }
+}

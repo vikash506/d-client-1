@@ -1,0 +1,52 @@
+.root {
+    .left {
+        
+        display: inline-block;
+        box-sizing: border-box;
+        padding: 0.5%;
+        vertical-align: top;
+        // margin: 5px 0;
+        app-left {
+            background: #ffffff;
+        }
+    }
+    .main {
+        display: inline-block;
+        box-sizing: border-box;
+        padding: 0.5%;
+        vertical-align: top;
+        app-main {
+            
+        }
+    }
+}
+
+/* Extra small devices (Mobile, 600px and down) */
+@media only screen and (max-width: 700px) {
+    .left {
+        width: 100%;
+    }
+    .main {
+        width: 100%;
+    }
+}
+
+/* Small to medium devices (tablets, 600px and up) */
+@media only screen and (min-width: 700px) {
+    .left {
+        width: 33%;
+    }
+    .main {
+        width: 66%;
+    }
+}
+
+/* Medium to large devices (desktop, 768px and up) */
+@media only screen and (min-width: 1440px) {
+    .left {
+        width: 20%;
+    }
+    .main {
+        width: 80%;
+    }
+}

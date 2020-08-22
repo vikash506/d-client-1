@@ -1,1 +1,35 @@
-<span>{{ title }}</span>
+<p>
+    <mat-toolbar color="primary">
+        <span class="titile">{{ title }}</span>
+        <span class="example-spacer"></span>
+        <span class="spacer"></span>
+        <div class="ls">
+            <button mat-button class="icon favorite-icon" aria-label="Example icon-button with heart icon"
+                [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                HOME
+            </button>
+            <button mat-button class="icon favorite-icon" aria-label="Example icon-button with heart icon"
+                [routerLink]="['/graph']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                GRAPH
+            </button>
+        </div>
+        <div class="sm">
+            <button mat-icon-button class="icon" aria-label="Example icon-button with menu icon" (click)="show = true">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+</p>
+
+<p *ngIf="show" class="small-header"  (click)="show = false">
+    <mat-toolbar color="primary">
+        <button mat-button class="icon favorite-icon" aria-label="Example icon-button with heart icon"
+            [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            HOME
+        </button>
+        <button mat-button class="icon favorite-icon" aria-label="Example icon-button with heart icon"
+            [routerLink]="['/graph']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            GRAPH
+        </button>
+    </mat-toolbar>
+</p>

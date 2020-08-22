@@ -1,10 +1,14 @@
-<!-- Displaying data fetched from the API endpoint -->
-<span *ngIf="programs">
-    <span *ngFor="let program of programs">
-        <app-card-program [program]="program"></app-card-program>
+<div class="root">
+    <!-- Displaying data fetched from the API endpoint -->
+    <span *ngIf="programs">
+        <span *ngFor="let program of programs">
+            <div class="card">
+                <app-card-program [program]="program"></app-card-program>
+            </div>
+        </span>
     </span>
-</span>
 
-<!-- Showing spinner while data is being fetched from the API endpoint -->
-<app-loader *ngIf="!programs"></app-loader>
-<div *ngIf="!pLength" class="cen">No Programs Found!</div>
+    <!-- Showing spinner while data is being fetched from the API endpoint -->
+    <app-loader *ngIf="!programs"></app-loader>
+    <div *ngIf="!pLength" class="cen">No Programs Found!</div>
+</div>

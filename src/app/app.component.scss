@@ -1,43 +1,22 @@
-.header {
-    width: 100%;
-}
-.left {
-    background: #ffffff;
-    display: inline-block;
-    vertical-align: top;
-    margin: 5px 0.5%;
-}
-.main {
-    display: inline-block;
-    vertical-align: top;
-}
-
-/* Extra small devices (Mobile, 600px and down) */
-@media only screen and (max-width: 700px) {
-    .left {
+.root {
+    box-sizing: border-box;
+    height: 100%;
+    .header {
         width: 100%;
+        box-sizing: border-box;
+        padding: 0.5%;
+        app-header {
+        }
     }
-    .main {
-        width: 100%;
+    .mid {
     }
-}
-
-/* Small to medium devices (tablets, 600px and up) */
-@media only screen and (min-width: 700px) {
-    .left {
-        width: 33%;
-    }
-    .main {
-        width: 66%;
-    }
-}
-
-/* Medium to large devices (desktop, 768px and up) */
-@media only screen and (min-width: 1440px) {
-    .left {
-        width: 20%;
-    }
-    .main {
-        width: 79%;
+    .footer {
+        box-sizing: border-box;
+        padding: 0.5%;
+        padding-bottom: 1%;
+        text-align: center;
+        vertical-align: top;
+        app-footer {
+        }
     }
 }

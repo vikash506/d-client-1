@@ -1,15 +1,17 @@
-<div class="card col-xs-12">
+<mat-card class="card">
 
     <!-- Icon for the program -->
-    <img src="{{ program.mission_patch_small }}" alt="Avatar" style="width:100%"><br><br>
-    <div class="container">
+    <img *ngIf="program.mission_patch_small != null" mat-card-image src="{{ program.mission_patch_small }}" alt="Photo of a Shiba Inu">
+    <img *ngIf="program.mission_patch_small == null" mat-card-image src="../../../assets/not-found.png" alt="Photo of a Shiba Inu">
 
+    <mat-card-content>
         <!-- Program Name with Flight Number -->
-        <span><b>{{ program.mission_name }} #{{ program.flight_number }}</b></span>
-        <br>
+        <div>
+            <mat-card-title>{{ program.mission_name }} #{{ program.flight_number }}</mat-card-title>
+        </div><hr>
 
         <!-- List of all mission IDs, Displays 'N/A' if there is no mission id -->
-        <span><b>Mission Ids:</b></span>
+        <div><b>Mission Ids:</b></div>
         <ul *ngIf="program.mission_id.length > 0">
             <li *ngFor="let id of program.mission_id">
                 {{ id }}
@@ -23,14 +25,12 @@
         </ul>
 
         <!-- Launch Year -->
-        <span><b>Launch Year</b>{{ program.launch_year }}</span>
-        <br>
+        <div><b>Launch Year: </b>{{ program.launch_year }}</div>
 
         <!-- Launch Success Status -->
-        <span><b>Successful Launch:</b> {{ program.launch_success | boolToStr }}</span>
-        <br>
+        <div><b>Successful Launch:</b> {{ program.launch_success | boolToStr }}</div>
 
         <!-- Land Success Status -->
-        <span><b>Successful Landing:</b> {{ program.land_success | boolToStr }}</span>
-    </div>
-</div>
+        <div><b>Successful Landing:</b> {{ program.land_success | boolToStr }}</div>
+    </mat-card-content>
+</mat-card>

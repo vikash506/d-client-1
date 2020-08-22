@@ -8,9 +8,9 @@ export class UtilityService {
   constructor() { }
 
   activateButton(btn: ElementRef) {
-    btn.nativeElement.style.background = "#7aba04";   // Activage Button
+    btn.nativeElement.style.background = "#000000";   // Activage Button
   }
   deActivateButton(btn: ElementRef) {
-    btn.nativeElement.style.background = "#c5e09b";   // Deactivate Button
+    btn.nativeElement.style.background = "#727256";   // Deactivate Button
   }
 }

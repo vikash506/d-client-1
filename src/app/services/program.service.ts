@@ -1,10 +1,11 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, from, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { Program } from '../models/program.model';
+import { Chart } from '../models/Chart.model';
 
 
 @Injectable({
@@ -18,10 +19,56 @@ export class ProgramService implements OnDestroy {
   private programs: Program[];
   private programsSubject = new Subject<Program[]>();
   private programSubscription: Subscription;
+  private charts: Chart[] = [];
+  private chartsSubject = new Subject<Chart[]>();
+  private chartSubscription: Subscription;
 
   constructor(
     private http: HttpClient
   ) { }
+
+  // @Title: Fetch data from the API endpoint and form the chart
+  // @Signature: no parameters or returns.
+  // @Desc: {
+  //  1: It requests API endpoint for data
+  //  2: Prepares an array string for launch_year
+  //  3: Prepares charts of type Charts[] with the years array
+  //  4: Informs the app for the preparedness of Chart[]
+  // }   
+  public prepareChartData() {
+    this.chartSubscription = this.http.get<string[]>(this.programsAPIUrl)
+      .pipe(map((item: any[]) => item.map((data: any) => data.launch_year)))
+      .subscribe(years => {
+        years.forEach(y => {
+          if (this.charts.length == 0) {
+            this.charts.push(new Chart(y, 1));
+          }
+          else if (this.charts.filter(r => r.year === y).length > 0) {
+            let i = this.charts.findIndex(j => j.year == y);
+            let chart = new Chart(y, this.charts[i].launches + 1)
+            this.charts[i] = chart;
+          }
+          else {
+            if (this.charts.length > 0 && parseInt(y) - parseInt(this.charts[this.charts.length - 1].year) > 1) {
+              let j = this.charts.length;
+              for (let i = parseInt(this.charts[this.charts.length - 1].year) + 1; i < parseInt(y); i++) {
+                this.charts[j++] = new Chart('' + i, 0);
+              }
+            }
+            this.charts.push(new Chart(y, 1));
+          }
+        })
+        return this.chartsSubject.next(this.charts);
+      });
+  }
+
+  // @Title: return observable of Chart[]
+  // @Signature: takes no paramenter, returns Observable<Chart[]>
+  public getChartData(): Observable<Chart[]> {
+    this.charts = [];
+    this.prepareChartData();
+    return this.chartsSubject.asObservable();
+  }
 
 
   // @Title: Preparing filter string to form query string for the API)
@@ -40,8 +87,8 @@ export class ProgramService implements OnDestroy {
         this.query = this.query.replace(`&${key}=${value}`, '')
       }
       else if (this.query.includes(`&${key}`)) {
-        let qSub = this.query.substring(this.query.indexOf(key) -1, this.query.substring(1).indexOf('&') + 1)
-        if(qSub == '') qSub = this.query.substring(this.query.indexOf(key) -1)
+        let qSub = this.query.substring(this.query.indexOf(key) - 1, this.query.substring(1).indexOf('&') + 1)
+        if (qSub == '') qSub = this.query.substring(this.query.indexOf(key) - 1)
         this.query = this.query.replace(
           qSub,
           '');
@@ -92,6 +139,9 @@ export class ProgramService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.programSubscription.unsubscribe();
+    if (this.programSubscription)
+      this.programSubscription.unsubscribe();
+    if (this.chartSubscription)
+      this.chartSubscription.unsubscribe();
   }
 }

@@ -1,3 +1,6 @@
+span {
+    font-family: monospace;
+}
 .title {
     font-weight: bold;
     padding: 5px 10px;
@@ -9,13 +12,16 @@ hr {
     width: 50%;
 }
 .button {
-    display: inline-block;
-    background: #c5e09b;
+    // display: inline-block;
+    // background: #c5e09b;
+    // background-image: linear-gradient(to bottom right, rgb(87, 16, 16), rgb(87, 16, 200));
+    // background-color: #727256;
+    // color: white;
     width: 30%;
-    margin: 10px 10%;
+    margin: 5px 10%;
     padding: 2px 0;
-    text-align: center;
-    border-radius: 5px;
+    // text-align: center;
+    // border-radius: 5px;
     cursor: pointer;
 }
 
@@ -24,11 +30,23 @@ hr {
     .button {
         font-size: 1.2em;
     }
+
+    mat-accordion {
+        display: block;
+    }
+
+    mat-card {
+        display: none;
+    }
 }
 
 /* Small to medium devices (tablets, 600px and up) */
 @media only screen and (min-width: 700px) {
     .button {
+    }
+
+    mat-accordion {
+        display: none;
     }
 }
 
@@ -36,5 +54,9 @@ hr {
 @media only screen and (min-width: 1440px) {
     .button {
         
+    }
+
+    mat-accordion {
+        display: none;
     }
 }

@@ -1,5 +1,49 @@
-span {
-    padding: 10px;
-    font-size: 1.7em;
-    font-weight: bold;
+p {
+    display: flex;
+    box-sizing: border-box;
+    mat-toolbar {
+        .title {
+            font-size: 1.7em;
+            // font-weight: bold;
+            font-family: monospace;
+        }
+        .spacer {
+            flex: 1;
+        }
+    }
+}
+
+.active {
+    background: rgb(14, 14, 105);
+}
+
+
+/* Extra small devices (Mobile, 600px and down) */
+@media only screen and (max-width: 700px) {
+    .ls {
+        display: none;
+    }
+    .sm {
+        display: block;
+    }
+}
+
+/* Small to medium devices (tablets, 600px and up) */
+@media only screen and (min-width: 700px) {
+    .ls {
+        display: block;
+    }
+    .sm {
+        display: none;
+    }
+}
+
+/* Medium to large devices (desktop, 768px and up) */
+@media only screen and (min-width: 1440px) {
+    .ls {
+        display: block;
+    }
+    .sm {
+        display: none;
+    }
 }
